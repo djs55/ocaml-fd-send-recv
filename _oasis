@@ -1,0 +1,16 @@
+OASISFormat: 0.2
+Name:        fd-send-recv
+Version:     0.1
+Synopsis:    Bindings to sendmsg/recvmsg which allow fds to be sent/received
+Authors:     Jonathan Ludlam <jonathan.ludlam@eu.citrix.com>
+License:     LGPL-2.1 with OCaml linking exception
+Plugins:     META (0.2)
+BuildTools:  ocamlbuild
+
+Library fd_send_recv
+  CompiledObject:     best
+  Path:               lib
+  Findlibname:        fd-send-recv
+  Modules:            Fd_send_recv
+  CSources:           fd_send_recv_stubs.c
+  BuildDepends:       unix
