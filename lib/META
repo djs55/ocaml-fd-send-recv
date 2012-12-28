@@ -1,0 +1,13 @@
+# OASIS_START
+# DO NOT EDIT (digest: 18cd88dd84aee043473789acd18ac8b6)
+version = "0.1"
+description =
+"Bindings to sendmsg/recvmsg which allow fds to be sent/received"
+requires = "unix"
+archive(byte) = "fd_send_recv.cma"
+archive(byte, plugin) = "fd_send_recv.cma"
+archive(native) = "fd_send_recv.cmxa"
+archive(native, plugin) = "fd_send_recv.cmxs"
+exists_if = "fd_send_recv.cma"
+# OASIS_STOP
+

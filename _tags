@@ -1,0 +1,21 @@
+# OASIS_START
+# DO NOT EDIT (digest: 4206d3c65bf245bd4b7dd568003eb92a)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library fd_send_recv
+"lib/fd_send_recv.cmxs": use_fd_send_recv
+<lib/fd_send_recv.{cma,cmxa}>: use_libfd_send_recv_stubs
+<lib/*.ml{,i}>: pkg_unix
+"lib/fd_send_recv_stubs.c": pkg_unix
+# OASIS_STOP
