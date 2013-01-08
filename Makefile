@@ -1,7 +1,7 @@
 .PHONY: all clean install build
 all: build doc
 
-NAME=forkexec
+NAME=fd-send-recv
 J=4
 
 export OCAMLRUNPARAM=b
