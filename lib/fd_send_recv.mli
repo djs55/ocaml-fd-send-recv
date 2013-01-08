@@ -22,3 +22,9 @@ val send_fd : Unix.file_descr -> string -> int -> int -> Unix.msg_flag list -> U
 val recv_fd : Unix.file_descr -> string -> int -> int -> Unix.msg_flag list -> int * Unix.sockaddr * Unix.file_descr
 (** [recv_fd channel_fd buf ofs len flags] receives a message into substring [buf] [ofs] [len]
     with [flags], returning the number of bytes read, the address of the peer and a file descriptor *)
+
+val int_of_fd : Unix.file_descr -> int
+(** [int_of_fd fd] returns the underlying unix integer file descriptor associated with OCaml Unix.file_descr [fd] *)
+
+val fd_of_int : int -> Unix.file_descr
+(** [fd_of_int fd] returns the OCaml Unix.file_descr associated with underlying unix integer [fd] *)
