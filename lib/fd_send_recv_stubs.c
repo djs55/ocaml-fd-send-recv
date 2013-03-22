@@ -22,7 +22,6 @@
 #include <stdio.h> /* snprintf */
 #include <sys/ioctl.h>
 #include <sys/statvfs.h>
-#include <linux/fs.h> 
 
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
@@ -49,7 +48,7 @@ static int msg_flag_table[] = {
   MSG_OOB, MSG_DONTROUTE, MSG_PEEK
 };
 
-#define UNIX_BUFFER_SIZE 16384
+#define UNIX_BUFSIZ 16384
 
 CAMLprim value stub_unix_send_fd(value sock, value buff, value ofs, value len, value flags, value fd)
 {
@@ -57,7 +56,7 @@ CAMLprim value stub_unix_send_fd(value sock, value buff, value ofs, value len, v
   CAMLxparam1(fd);
   int ret,  cv_flags, cfd;
   long numbytes;
-  char iobuf[UNIX_BUFFER_SIZE];
+  char iobuf[UNIX_BUFSIZ];
   char buf[CMSG_SPACE(sizeof(cfd))];
 
   cfd = Int_val(fd);
@@ -65,7 +64,7 @@ CAMLprim value stub_unix_send_fd(value sock, value buff, value ofs, value len, v
   cv_flags = convert_flag_list(flags,msg_flag_table);
 
   numbytes = Long_val(len);
-  if (numbytes > UNIX_BUFFER_SIZE) numbytes = UNIX_BUFFER_SIZE;
+  if (numbytes > UNIX_BUFSIZ) numbytes = UNIX_BUFSIZ;
   memmove(iobuf, &Byte(buff, Long_val(ofs)), numbytes);
 
   /* Set up sockaddr */
@@ -114,7 +113,7 @@ CAMLprim value stub_unix_recv_fd(value sock, value buff, value ofs, value len, v
   CAMLlocal2(res,addr);
   int ret,  cv_flags, fd;
   long numbytes;
-  char iobuf[UNIX_BUFFER_SIZE];
+  char iobuf[UNIX_BUFSIZ];
   char buf[CMSG_SPACE(sizeof(fd))];
   struct sockaddr_un unix_socket_name;
 
@@ -125,8 +124,8 @@ CAMLprim value stub_unix_recv_fd(value sock, value buff, value ofs, value len, v
   struct cmsghdr *cmsg;
 
   numbytes = Long_val(len);
-  if(numbytes > UNIX_BUFFER_SIZE)
-    numbytes = UNIX_BUFFER_SIZE;
+  if(numbytes > UNIX_BUFSIZ)
+    numbytes = UNIX_BUFSIZ;
 
   msg.msg_name=&unix_socket_name;
   msg.msg_namelen=sizeof(unix_socket_name);
