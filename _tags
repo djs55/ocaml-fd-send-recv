@@ -19,3 +19,4 @@
 <lib/*.ml{,i}>: pkg_unix
 "lib/fd_send_recv_stubs.c": pkg_unix
 # OASIS_STOP
+<lib>: include

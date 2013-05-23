@@ -14,3 +14,10 @@ Library fd_send_recv
   Modules:            Fd_send_recv
   CSources:           fd_send_recv_stubs.c
   BuildDepends:       unix
+
+Document api
+  Title: Documentation and API reference
+  Type: ocamlbuild (0.3)
+  BuildTools+: ocamldoc
+  XOCamlbuildLibraries: fd-send-recv
+  XOcamlbuildPath: doc
