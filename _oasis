@@ -21,3 +21,4 @@ Document api
   BuildTools+: ocamldoc
   XOCamlbuildLibraries: fd-send-recv
   XOcamlbuildPath: doc
+  Install: false
