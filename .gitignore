@@ -1,9 +1,6 @@
-*.annot
-*.cmo
-*.cma
-*.cmi
-*.a
-*.o
-*.cmx
-*.cmxs
-*.cmxa
+setup.bin
+setup.data
+setup.log
+dist
+_build
+api.docdir
