@@ -29,6 +29,16 @@ Executable test
   BuildDepends: threads, fd-send-recv
   CompiledObject: best
 
+Executable test_fork
+  Path:    test
+  MainIs:  test_fork.ml
+  BuildDepends: fd-send-recv
+  CompiledObject: best
+
 Test test
   Command: ./test.native
+  Run: true
+
+Test test_fork
+  Command: ./test_fork.native
   Run: true
