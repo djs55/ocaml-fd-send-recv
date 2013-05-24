@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: f715e6a8a80cf2a44b56e97fdb0f2319) *)
+(* DO NOT EDIT (digest: b04a4a159fb9e4ff2046fce320be5134) *)
 module OASISGettext = struct
 (* # 21 "/home/vb/.opam/system/build/oasis.0.3.0/src/oasis/OASISGettext.ml" *)
 
@@ -480,7 +480,7 @@ let package_default =
      MyOCamlbuildBase.lib_ocaml = [("fd_send_recv", ["lib"])];
      lib_c = [("fd_send_recv", "lib", [])];
      flags = [];
-     includes = [];
+     includes = [("test", ["lib"])];
      }
   ;;
 

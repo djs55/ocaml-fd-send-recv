@@ -4,3 +4,5 @@ setup.log
 dist
 _build
 api.docdir
+*.native
+*.byte
