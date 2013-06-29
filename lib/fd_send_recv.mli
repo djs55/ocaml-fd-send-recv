@@ -22,7 +22,9 @@ val send_fd : Unix.file_descr -> string -> int -> int ->
 (** [send_fd channel_fd buf ofs len flags fd_to_send] sends a message
 	  over [channel_fd] containing the [buf] [ofs] [len] substring, with
 	  [flags] and file descriptor [fd_to_send], and returns the number
-	  of bytes sent. *)
+	  of bytes sent. Note that you have to send a non-empty message
+	  (e.g. of size greater than zero) to actually have the fd
+	  passed. *)
 
 val recv_fd : Unix.file_descr -> string -> int -> int ->
   Unix.msg_flag list -> int * Unix.sockaddr * Unix.file_descr
