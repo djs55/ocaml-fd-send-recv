@@ -32,17 +32,18 @@ Executable test
   MainIs:  test.ml
   BuildDepends: threads, fd-send-recv
   CompiledObject: best
-
+  Install: false
 
 Executable test_fork
   Path:    test
   MainIs:  test_fork.ml
   BuildDepends: fd-send-recv
   CompiledObject: best
+  Install: false
 
 Executable test_tuntap
   Build$: flag(tuntap)
-  Install$: flag(tuntap)
+  Install: false
   Path: test
   MainIs: test_tuntap.ml
   BuildDepends: fd-send-recv, tuntap
@@ -58,4 +59,4 @@ Test test_fork
 
 Test test_tuntap
   Command: ./test_tuntap.native
-  Run: true
+  Run$: flag(tuntap)
