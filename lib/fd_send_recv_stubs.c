@@ -95,8 +95,10 @@ CAMLprim value stub_unix_send_fd(value sock, value buff, value ofs, value len, v
   ret=sendmsg(Int_val(sock), &msg, cv_flags);
   caml_leave_blocking_section();
 
-  if(ret == -1)
+  if(ret == -1) {
+    perror("sendmsg");
     raise_error(errno);
+  }
 
   CAMLreturn(Val_int(ret));
 }
@@ -142,8 +144,10 @@ CAMLprim value stub_unix_recv_fd(value sock, value buff, value ofs, value len, v
   ret=recvmsg(Int_val(sock), &msg, cv_flags);
   caml_leave_blocking_section();
 
-  if(ret == -1) 
+  if(ret == -1) {
+    perror("recvmsg");
     raise_error(errno);
+  }
 
   if(ret>0 && msg.msg_controllen>0) {
     cmsg = CMSG_FIRSTHDR(&msg);
