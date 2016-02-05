@@ -1,11 +1,15 @@
-OASISFormat: 0.2
+OASISFormat: 0.3
 Name:        fd-send-recv
 Version:     1.0.1 
 Synopsis:    Bindings to sendmsg/recvmsg which allow fds to be sent/received
 Authors:     Jonathan Ludlam <jonathan.ludlam@eu.citrix.com>
 License:     LGPL-2.1 with OCaml linking exception
-Plugins:     META (0.2)
+Plugins:     META (0.3), DevFiles (0.3)
 BuildTools:  ocamlbuild
+
+Flag tuntap
+  Description: Enable the tuntap test (require package tuntap)
+  Default: false
 
 Library fd_send_recv
   CompiledObject:     best
@@ -14,3 +18,45 @@ Library fd_send_recv
   Modules:            Fd_send_recv
   CSources:           fd_send_recv_stubs.c
   BuildDepends:       unix
+
+Document api
+  Title: Documentation and API reference
+  Type: ocamlbuild (0.3)
+  BuildTools+: ocamldoc
+  XOCamlbuildLibraries: fd-send-recv
+  XOcamlbuildPath: doc
+  Install: false
+
+Executable test
+  Path:    test
+  MainIs:  test.ml
+  BuildDepends: threads, fd-send-recv
+  CompiledObject: best
+  Install: false
+
+Executable test_fork
+  Path:    test
+  MainIs:  test_fork.ml
+  BuildDepends: fd-send-recv
+  CompiledObject: best
+  Install: false
+
+Executable test_tuntap
+  Build$: flag(tuntap)
+  Install: false
+  Path: test
+  MainIs: test_tuntap.ml
+  BuildDepends: fd-send-recv, tuntap
+  CompiledObject: best
+
+Test test
+  Command: ./test.native
+  Run: true
+
+Test test_fork
+  Command: ./test_fork.native
+  Run: true
+
+Test test_tuntap
+  Command: ./test_tuntap.native
+  Run$: flag(tuntap)

@@ -1,34 +1,41 @@
-.PHONY: all clean install build
-all: build doc
+# OASIS_START
+# DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
 
-NAME=fd-send-recv
-J=4
+SETUP = ocaml setup.ml
 
-export OCAMLRUNPARAM=b
+build: setup.data
+	$(SETUP) -build $(BUILDFLAGS)
 
-setup.bin: setup.ml
-	@ocamlopt.opt -o $@ $< || ocamlopt -o $@ $< || ocamlc -o $@ $<
-	@rm -f setup.cmx setup.cmi setup.o setup.cmo
+doc: setup.data build
+	$(SETUP) -doc $(DOCFLAGS)
 
-setup.data: setup.bin
-	@./setup.bin -configure
+test: setup.data build
+	$(SETUP) -test $(TESTFLAGS)
 
-build: setup.data setup.bin
-	@./setup.bin -build -j $(J)
+all:
+	$(SETUP) -all $(ALLFLAGS)
 
-doc: setup.data setup.bin
-	@./setup.bin -doc -j $(J)
+install: setup.data
+	$(SETUP) -install $(INSTALLFLAGS)
 
-install: setup.bin
-	@./setup.bin -install
+uninstall: setup.data
+	$(SETUP) -uninstall $(UNINSTALLFLAGS)
 
-test: setup.bin build
-	@./setup.bin -test
-
-reinstall: setup.bin
-	@ocamlfind remove $(NAME) || true
-	@./setup.bin -reinstall
+reinstall: setup.data
+	$(SETUP) -reinstall $(REINSTALLFLAGS)
 
 clean:
-	@ocamlbuild -clean
-	@rm -f setup.data setup.log setup.bin
+	$(SETUP) -clean $(CLEANFLAGS)
+
+distclean:
+	$(SETUP) -distclean $(DISTCLEANFLAGS)
+
+setup.data:
+	$(SETUP) -configure $(CONFIGUREFLAGS)
+
+configure:
+	$(SETUP) -configure $(CONFIGUREFLAGS)
+
+.PHONY: build doc test all install uninstall reinstall clean distclean configure
+
+# OASIS_STOP
