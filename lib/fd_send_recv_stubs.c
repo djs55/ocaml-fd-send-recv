@@ -12,16 +12,18 @@
  * GNU Lesser General Public License for more details.
  */
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/socket.h>
-#include <errno.h>
-#include <netinet/tcp.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <sys/un.h>
+#include <sys/ioctl.h>
+#include <sys/statvfs.h>
+#endif
+#include <errno.h>
 #include <string.h>
 #include <unistd.h> /* needed for _SC_OPEN_MAX */
 #include <stdio.h> /* snprintf */
-#include <sys/ioctl.h>
-#include <sys/statvfs.h>
 
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
@@ -55,6 +57,7 @@ CAMLprim value stub_unix_send_fd(value sock, value buff, value ofs, value len, v
   CAMLparam5(sock,buff,ofs,len,flags);
   CAMLxparam1(fd);
   int ret,  cv_flags, cfd;
+#ifndef _WIN32
   long numbytes;
   char iobuf[UNIX_BUFSIZ];
   char buf[CMSG_SPACE(sizeof(cfd))];
@@ -99,7 +102,9 @@ CAMLprim value stub_unix_send_fd(value sock, value buff, value ofs, value len, v
     perror("sendmsg");
     raise_error(errno);
   }
-
+#else
+  caml_failwith("stub_unix_send_fd not implementable on Win32");
+#endif
   CAMLreturn(Val_int(ret));
 }
 
@@ -113,6 +118,7 @@ CAMLprim value stub_unix_recv_fd(value sock, value buff, value ofs, value len, v
 {
   CAMLparam5(sock,buff,ofs,len,flags);
   CAMLlocal2(res,addr);
+#ifndef _WIN32
   int ret,  cv_flags, fd;
   long numbytes;
   char iobuf[UNIX_BUFSIZ];
@@ -178,6 +184,8 @@ CAMLprim value stub_unix_recv_fd(value sock, value buff, value ofs, value len, v
   Field(res,0) = Val_int(ret);
   Field(res,1) = addr;
   Field(res,2) = fd;
-
+#else
+  caml_failwith("stub_unix_recv_fd not implementable on Win32");
+#endif
   CAMLreturn(res);
 }
