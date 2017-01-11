@@ -1,6 +1,7 @@
 opam-version: "1.2"
 maintainer: "dave@recoil.org"
 authors: [
+  "Jonathan Ludlam"
   "David Scott"
   "David Sheets"
   "Euan Harris"
