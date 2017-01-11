@@ -1,6 +1,6 @@
 OASISFormat: 0.3
 Name:        fd-send-recv
-Version:     1.0.1 
+Version:     1.0.4
 Synopsis:    Bindings to sendmsg/recvmsg which allow fds to be sent/received
 Authors:     Jonathan Ludlam <jonathan.ludlam@eu.citrix.com>
 License:     LGPL-2.1 with OCaml linking exception
